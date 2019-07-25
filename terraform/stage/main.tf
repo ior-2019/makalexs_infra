@@ -1,6 +1,6 @@
 terraform {
   # Версия terraform
-  required_version = "0.12.3"
+  required_version = "0.12.5"
 }
 
 provider "google" {
@@ -25,5 +25,5 @@ module "db" {
 }
 module "vpc" {
   source        = "../modules/vpc"
-  source_ranges = ["0.0.0.0/32"]
+  source_ranges = ["0.0.0.0/0"]
 }
