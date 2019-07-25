@@ -24,7 +24,7 @@ resource "google_compute_instance" "app" {
   connection {
     type  = "ssh"
     host  = "${google_compute_instance.app.network_interface.0.access_config.0.nat_ip}"
-    user  = "Maxim"
+    user  = "makalexs"
     agent = false
     # путь до приватного ключа
     private_key = "${file(var.private_key)}"
