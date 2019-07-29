@@ -14,3 +14,6 @@ variable region {
   # Значение по умолчанию
   default = "europe-west1"
 }
+variable db_internal_ip {
+  description = "DB internal IP"
+}

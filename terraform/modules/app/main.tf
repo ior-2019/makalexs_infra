@@ -18,9 +18,6 @@ resource "google_compute_instance" "app" {
 		nat_ip = "${google_compute_address.app_ip.address}"
 	}
   }
-  provisioner "remote-exec" {
-	script = "files/deploy.sh"
-  }
   connection {
     type  = "ssh"
     host  = "${google_compute_instance.app.network_interface.0.access_config.0.nat_ip}"
@@ -28,6 +25,27 @@ resource "google_compute_instance" "app" {
     agent = false
     # путь до приватного ключа
     private_key = "${file(var.private_key)}"
+  }
+  provisioner "file" {
+    source      = "../modules/app/setup_app.sh"
+    destination = "/home/makalexs/setup_app.sh"
+
+        connection {
+      type        = "ssh"
+      user        = "makalexs"
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /home/makalexs/setup_app.sh",
+      "home/makalexs/setup_app.sh ${var.db_internal_ip}",
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "makalexs"
+    }
   }
 }
 
