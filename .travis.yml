@@ -3,5 +3,11 @@ sudo: required
 language: bash
 before_install:
 - curl https://raw.githubusercontent.com/express42/otus-homeworks/2019-05/run.sh | bash
+before_script:
+- curl -L https://releases.hashicorp.com/packer/1.2.5/packer_1.2.5_linux_amd64.zip -o /tmp/packer.zip
+- sudo unzip -o -d /usr/local/bin /tmp/packer.zip
+- sudo chmod +x /usr/local/bin/packer
+script:
+- packer validate ./packer/*.json
 notifications:
   slack: makalexs:ctfAar3WvQpS2ys6cpFCBHnf
